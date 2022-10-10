@@ -1,4 +1,8 @@
 # User_Managment_portal
+    -> Material-UI is used for styling
+  
+
+
 ## Description
  
     User data is being fetched from an API ("https://reqres.in/api/users?page=1") 
