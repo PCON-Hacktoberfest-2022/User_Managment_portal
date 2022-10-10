@@ -4,7 +4,8 @@
     User data is being fetched from an API ("https://reqres.in/api/users?page=1") 
     and then their details are displayed on the screen.
     
-    from Form ,data will be taken and stored in Database and simultaneously data will be fetched from database and displayed,
+    from Form ,data will be taken and stored in Database and
+    simultaneously data will be fetched from database and displayed,
     
     "CREATE USER" button will be used to create a new user 
      
