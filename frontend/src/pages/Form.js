@@ -15,6 +15,7 @@ const initialState = {
 
 const Form = () => {
   const [user, setUser] = useState(initialState);
+  const [file, setFile] = useState("");
 
   const inputChangeHandler = (e) => {
     const value = e.target.value;
@@ -25,8 +26,34 @@ const Form = () => {
   };
 
   const createUserHandler = async () => {
-    //create new user
-    toast("Create new user");
+    const formData = new FormData();
+    formData.append("file", file);
+    const imageRes = await fetch("http://localhost:5000/post-image", {
+      method: "POST",
+      body: formData,
+    });
+
+    let imagePath = await imageRes.json();
+    let filePath = imagePath.filePath;
+    console.log(typeof filePath);
+    console.log(filePath);
+
+    const res = await fetch("http://localhost:5000/users/add-user", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        ...user,
+        avatar: filePath,
+      }),
+    });
+    const data = await res.json();
+    console.log(data);
+    if (data.success === 1) {
+      toast("User created successfully");
+      setUser(initialState);
+    } else toast("User creation failed");
   };
 
   return (
@@ -72,7 +99,15 @@ const Form = () => {
       <input
         type={"file"}
         value={user.avatar}
-        onChange={inputChangeHandler}
+        onChange={(e) => {
+          setUser((prevState) => {
+            return {
+              ...prevState,
+              avatar: e.target.value,
+            };
+          });
+          setFile(e.target.files[0]);
+        }}
         name="avatar"
       />
       <Button
