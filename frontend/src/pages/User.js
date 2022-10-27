@@ -10,10 +10,10 @@ const User = ({ user }) => {
             <Avatar
               sx={{ width: 56, height: 56 }}
               alt="Cindy Baker"
-              src={user.avatar}
+              src={`http://localhost:5000/${user.avatar}`}
             />
           }
-          title={user.first_name + "  " + user.last_name}
+          title={user.firstName + "  " + user.lastName}
           subheader={`Email :  ${user.email}`}
         />
       </Card>

@@ -1,6 +1,5 @@
 import React from "react";
-import { useContext } from "react";
-import userContext from "../context/userContext";
+import { useEffect, useState } from "react";
 import { Container } from "@mui/system";
 import "./style.css";
 import User from "./User";
@@ -16,10 +15,23 @@ import Form from "./Form";
 //   },
 // ];
 const Home = () => {
-  const userList = useContext(userContext);
-  console.log(userList.data);
+  const [users, setUsers] = useState([]);
 
-  const users = userList.data;
+  const getUsers = async () => {
+    const res = await fetch("http://localhost:5000/users/get-users", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    setUsers(data.users);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   //console.log(users);
 
   //console.log(dumydata);
@@ -34,7 +46,7 @@ const Home = () => {
         {users &&
           users.map((user) => {
             return (
-              <div className="user" key={user.id}>
+              <div className="user" key={user._id}>
                 <User user={user} />
               </div>
             );
