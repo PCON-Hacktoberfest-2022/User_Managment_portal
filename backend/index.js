@@ -28,6 +28,7 @@ const diskStorage = multer.diskStorage({
 });
 
 //middlewares
+app.use("/data/images", express.static(path.join(__dirname, "data", "images")));
 app.use(cors());
 app.use(express.json());
 app.use(multer({ storage: diskStorage }).single("file"));

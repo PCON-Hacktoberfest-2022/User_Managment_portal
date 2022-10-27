@@ -11,3 +11,8 @@ exports.addUser = async (req, res, next) => {
   await newUser.save();
   res.status(200).json({ success: 1, msg: "User saved successfully" });
 };
+
+exports.getUser = async (req, res, next) => {
+  const users = await User.find();
+  res.status(200).json({ success: 1, users });
+};
